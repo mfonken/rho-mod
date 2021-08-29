@@ -16,6 +16,18 @@
 //  uint8_t Value;
 //} register_t;
 
+typedef struct
+{
+	uint32_t it_cc;
+	uint32_t tim_ch;
+	uint32_t cc;
+	uint32_t src;
+	uint32_t dst;
+	uint16_t size;
+	uint8_t id;
+	bool state;
+} dma_info_t;
+
 typedef volatile bool flag_t;
 typedef struct
 {

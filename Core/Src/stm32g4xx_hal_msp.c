@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
+extern DMA_HandleTypeDef hdma_tim16_ch1;
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
@@ -114,8 +115,8 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
     */
     GPIO_InitStruct.Pin = SIOD_Pin|SIOC_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -167,16 +168,47 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
 */
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
-  if(htim_base->Instance==TIM8)
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  if(htim_base->Instance==TIM16)
   {
-  /* USER CODE BEGIN TIM8_MspInit 0 */
+  /* USER CODE BEGIN TIM16_MspInit 0 */
 
-  /* USER CODE END TIM8_MspInit 0 */
+  /* USER CODE END TIM16_MspInit 0 */
     /* Peripheral clock enable */
-    __HAL_RCC_TIM8_CLK_ENABLE();
-  /* USER CODE BEGIN TIM8_MspInit 1 */
+    __HAL_RCC_TIM16_CLK_ENABLE();
 
-  /* USER CODE END TIM8_MspInit 1 */
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    /**TIM16 GPIO Configuration
+    PB4     ------> TIM16_CH1
+    */
+    GPIO_InitStruct.Pin = PCLK_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.Alternate = GPIO_AF1_TIM16;
+    HAL_GPIO_Init(PCLK_GPIO_Port, &GPIO_InitStruct);
+
+    /* TIM16 DMA Init */
+    /* TIM16_CH1 Init */
+    hdma_tim16_ch1.Instance = DMA1_Channel1;
+    hdma_tim16_ch1.Init.Request = DMA_REQUEST_TIM16_CH1;
+    hdma_tim16_ch1.Init.Direction = DMA_PERIPH_TO_MEMORY;
+    hdma_tim16_ch1.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_tim16_ch1.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_tim16_ch1.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+    hdma_tim16_ch1.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    hdma_tim16_ch1.Init.Mode = DMA_NORMAL;
+    hdma_tim16_ch1.Init.Priority = DMA_PRIORITY_LOW;
+    if (HAL_DMA_Init(&hdma_tim16_ch1) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    __HAL_LINKDMA(htim_base,hdma[TIM_DMA_ID_CC1],hdma_tim16_ch1);
+
+  /* USER CODE BEGIN TIM16_MspInit 1 */
+
+  /* USER CODE END TIM16_MspInit 1 */
   }
 
 }
@@ -189,16 +221,24 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 */
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 {
-  if(htim_base->Instance==TIM8)
+  if(htim_base->Instance==TIM16)
   {
-  /* USER CODE BEGIN TIM8_MspDeInit 0 */
+  /* USER CODE BEGIN TIM16_MspDeInit 0 */
 
-  /* USER CODE END TIM8_MspDeInit 0 */
+  /* USER CODE END TIM16_MspDeInit 0 */
     /* Peripheral clock disable */
-    __HAL_RCC_TIM8_CLK_DISABLE();
-  /* USER CODE BEGIN TIM8_MspDeInit 1 */
+    __HAL_RCC_TIM16_CLK_DISABLE();
 
-  /* USER CODE END TIM8_MspDeInit 1 */
+    /**TIM16 GPIO Configuration
+    PB4     ------> TIM16_CH1
+    */
+    HAL_GPIO_DeInit(PCLK_GPIO_Port, PCLK_Pin);
+
+    /* TIM16 DMA DeInit */
+    HAL_DMA_DeInit(htim_base->hdma[TIM_DMA_ID_CC1]);
+  /* USER CODE BEGIN TIM16_MspDeInit 1 */
+
+  /* USER CODE END TIM16_MspDeInit 1 */
   }
 
 }

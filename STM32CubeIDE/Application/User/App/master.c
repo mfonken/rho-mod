@@ -12,6 +12,18 @@
 /***************************************************************************************/
 /*                                  Core Routines                                      */
 /***************************************************************************************/
+static dma_info_t CameraDMA =
+{
+	RHO_TIM_IT_CC,
+	RHO_TIM_CHANNEL,
+	RHO_TIM_DMA_CC,
+	(uint32_t)&CAMERA_PORT,
+	(uint32_t)NULL,
+	(uint16_t)CAPTURE_BUFFER_SIZE,
+	RHO_TIM_DMA_ID,
+	true
+};
+
 /* INITIALIZING State Routine */
 void InitializePlatform( void )
 {
@@ -36,7 +48,8 @@ void ConfigureApplication( void )
   OV9712_Functions.Init( &OV9712, Master.IOs.CAMERA_COMMUNICATION_CHANNEL, &Default_OV9712_Pins );
 #endif
 #ifdef __RHO__
-  RhoSystem.Functions.Perform.ConnectToInterface( &PlatformFunctions, &CameraFlags );
+  while(1);
+  RhoSystem.Functions.Perform.ConnectToInterface( &PlatformFunctions, &CameraFlags, &CameraDMA );
   RhoSystem.Functions.Perform.Initialize( CAMERA_PORT, UART_TX_PORT );
 #endif
 }
@@ -82,13 +95,8 @@ void Master_Connect( I2C_Handle_t * i2c, TIMER_Handle_t * timer, UART_Handle_t *
 {
   printf("Connecting master..."ENDL);
   Master.IOs.I2C_Primary = i2c;
-  Master.Utilities.Timer_Primary = timer;
   Master.IOs.UART_Primary = usart;
-
-#ifdef __RHO__
-#warning "TODO: Figure out better capture DMA initializer"
-  STM_InitDMA( (uint32_t)&CAMERA_PORT, (uint32_t)RhoSystem.Variables.Buffers.Capture, (uint16_t)CAPTURE_BUFFER_SIZE, true );
-#endif
+  Master.Utilities.Timer_Primary = timer;
   PlatformFunctions.GPIO.Write(&(GPIO_t){ LED_GPIO_Port, LED_Pin }, GPIO_PIN_SET);
   MasterFunctions.Init();
 }

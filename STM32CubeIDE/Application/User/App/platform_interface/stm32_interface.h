@@ -26,11 +26,11 @@
 /***************************************************************************************/
 /*                                  Global Variables                                   */
 /***************************************************************************************/
-static uint32_t _dma_destination = (uint32_t)NULL, _dma_size = 0;
 
 ///***************************************************************************************/
-///*                                  Master Definitions                                   */
+///*                                  Master Definitions                                 */
 ///***************************************************************************************/
+
 typedef struct
 {
 	I2C_Handle_t * I2C_Primary;
@@ -57,11 +57,11 @@ extern master_t Master;
 void            STM_InterruptHandler( uint16_t GPIO_Pin );
 void            STM_InterruptEnable( void );
 void            STM_InterruptDisable( void );
-void            STM_InitDMA( uint32_t, uint32_t, uint16_t, bool );
-void            STM_PauseDMA( uint32_t, uint32_t );
-void            STM_ResumeDMA( uint32_t, uint32_t );
-void            STM_ResetDMA( void *, uint8_t );
-uint32_t        STM_GetDMAFillAddress( void );
+void            STM_InitDMA( dma_info_t * );
+void            STM_PauseDMA( dma_info_t * );
+void            STM_ResumeDMA( dma_info_t * );
+void            STM_ResetDMA( dma_info_t *);
+uint32_t        STM_GetDMAFillAddress( dma_info_t * );
 uint8_t         STM_UartTxDMA( UART_Handle_t * huart, uint8_t * buffer, uint16_t length );
 uint16_t        STM_UartRxDMA( UART_Handle_t * huart, uint8_t * buffer );
 //bool            STM_UartCompleted( UART_Handle_t *huart );
