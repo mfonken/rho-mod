@@ -37,8 +37,8 @@
 
   /* Application utilities */
 #ifdef __RHO__
-  static camera_application_flags 		CameraFlags;
-  static dma_info_t						CameraDMA;
+  extern camera_application_flags 		CameraFlags;
+  extern dma_info_t						CameraDMA;
 #endif
 
 #endif /* global_config_h */

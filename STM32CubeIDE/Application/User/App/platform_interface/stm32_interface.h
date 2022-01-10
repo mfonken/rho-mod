@@ -69,6 +69,7 @@ void            STM_I2CMasterTx( I2C_Handle_t * hi2c, uint16_t addr, uint8_t * b
 void            STM_SetPortMode( GPIO_TypeDef * port, uint16_t pin, uint8_t type );
 uint8_t         STM_ReadPort(GPIO_TypeDef * port );
 void            STM_WritePin( GPIO_TypeDef * port, uint16_t pin, uint8_t state );
+void 			STM_TogglePin( GPIO_TypeDef * port, uint16_t pin );
 uint32_t        STM_Timestamp( void );
 void            STM_Wait( uint32_t );
 uint32_t        STM_SysClockFreq(void);

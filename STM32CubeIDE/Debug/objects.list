@@ -6,6 +6,7 @@
 "./Application/User/Core/stm32g4xx_it.o"
 "./Application/User/Core/syscalls.o"
 "./Application/User/Core/sysmem.o"
+"./Application/User/Rho/core/rho_capture.o"
 "./Application/User/Rho/core/rho_client.o"
 "./Application/User/Rho/core/rho_core.o"
 "./Application/User/Rho/core/rho_utility.o"

@@ -47,14 +47,6 @@ void SystemError( void );
 /***************************************************************************************/
 /*                                Core State List                                      */
 /***************************************************************************************/
-static system_states_list_t global_states_list =
-{
-  { INITIALIZING,       CONNECTING_TO_HOST, InitializePlatform    },
-  { CONNECTING_TO_HOST, CONFIGURING,        ConnectToHost         },
-  { CONFIGURING,        READY,              ConfigureApplication  },
-  { READY,              ACTIVE,             ExitInitialization    },
-  { ACTIVE,             IDLE,               ApplicationCore       },
-  { SYS_ERROR,          IDLE,               SystemError           }
-};
+extern system_states_list_t global_states_list;
 
 #endif /* MASTER_H_ */

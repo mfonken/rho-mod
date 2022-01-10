@@ -1,4 +1,7 @@
-OV9712.c:55:6:OV9712_Write	24	static
-OV9712.c:61:6:OV9712_Enable	8	static
-OV9712.c:70:6:OV9712_Disable	8	static
-OV9712.c:40:6:OV9712_Init	24	static
+OV9712.c:102:6:OV9712_Write	24	static
+OV9712.c:108:6:OV9712_Enable	8	static
+OV9712.c:117:6:OV9712_Disable	8	static
+OV9712.c:87:6:OV9712_Init	24	static
+OV9712.c:40:6:SetSubsample	0	static
+OV9712.c:45:6:SetPercentActive	16	static
+OV9712.c:53:6:SetFrameRate	0	static

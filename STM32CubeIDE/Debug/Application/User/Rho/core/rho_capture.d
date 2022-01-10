@@ -1,5 +1,6 @@
-Application/User/Rho/core/rho_core.o: \
- ../Application/User/Rho/core/rho_core.c \
+Application/User/Rho/core/rho_capture.o: \
+ ../Application/User/Rho/core/rho_capture.c \
+ ../Application/User/Rho/core/rho_capture.h \
  ../Application/User/Rho/core/rho_core.h \
  ../Application/User/Rho/core/rho_utility.h \
  ../Application/User/Rho/core/../types/rho_types.h \
@@ -67,6 +68,8 @@ Application/User/Rho/core/rho_core.o: \
  ../Application/User/Rho/core/../types/../psm/../../App/OV9712/OV9712_calc.h \
  ../Application/User/Rho/core/../types/../psm/../../App/OV9712/OV9712_regs.h \
  C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniSM/platform.h
+
+../Application/User/Rho/core/rho_capture.h:
 
 ../Application/User/Rho/core/rho_core.h:
 

@@ -91,6 +91,7 @@ void Error_Handler(void);
 #define CAM_EN_GPIO_Port GPIOA
 #define HREF_Pin GPIO_PIN_3
 #define HREF_GPIO_Port GPIOB
+#define HREF_EXTI_IRQn EXTI3_IRQn
 #define PCLK_Pin GPIO_PIN_4
 #define PCLK_GPIO_Port GPIOB
 #define CAM__CS_Pin GPIO_PIN_5

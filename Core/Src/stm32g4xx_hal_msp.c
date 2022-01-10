@@ -26,6 +26,8 @@
 /* USER CODE END Includes */
 extern DMA_HandleTypeDef hdma_tim16_ch1;
 
+extern DMA_HandleTypeDef hdma_usart1_tx;
+
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
 
@@ -67,7 +69,6 @@ void HAL_MspInit(void)
   /* USER CODE BEGIN MspInit 0 */
 
   /* USER CODE END MspInit 0 */
-  PWR_PVDTypeDef sConfigPVD = {0};
 
   __HAL_RCC_SYSCFG_CLK_ENABLE();
   __HAL_RCC_PWR_CLK_ENABLE();
@@ -76,14 +77,6 @@ void HAL_MspInit(void)
 
   /* System interrupt init*/
 
-  /** PVD Configuration
-  */
-  sConfigPVD.PVDLevel = PWR_PVDLEVEL_0;
-  sConfigPVD.Mode = PWR_PVD_MODE_NORMAL;
-  HAL_PWR_ConfigPVD(&sConfigPVD);
-  /** Enable the PVD Output
-  */
-  HAL_PWR_EnablePVD();
   /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
   */
   HAL_PWREx_DisableUCPDDeadBattery();
@@ -115,7 +108,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
     */
     GPIO_InitStruct.Pin = SIOD_Pin|SIOC_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -197,8 +190,8 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     hdma_tim16_ch1.Init.MemInc = DMA_MINC_ENABLE;
     hdma_tim16_ch1.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
     hdma_tim16_ch1.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_tim16_ch1.Init.Mode = DMA_NORMAL;
-    hdma_tim16_ch1.Init.Priority = DMA_PRIORITY_LOW;
+    hdma_tim16_ch1.Init.Mode = DMA_CIRCULAR;
+    hdma_tim16_ch1.Init.Priority = DMA_PRIORITY_VERY_HIGH;
     if (HAL_DMA_Init(&hdma_tim16_ch1) != HAL_OK)
     {
       Error_Handler();
@@ -265,13 +258,41 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     PA9     ------> USART1_TX
     PA10     ------> USART1_RX
     */
-    GPIO_InitStruct.Pin = CAM_TX_Pin|CAM_RX_Pin;
+    GPIO_InitStruct.Pin = CAM_TX_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
+    HAL_GPIO_Init(CAM_TX_GPIO_Port, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = CAM_RX_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(CAM_RX_GPIO_Port, &GPIO_InitStruct);
 
+    /* USART1 DMA Init */
+    /* USART1_TX Init */
+    hdma_usart1_tx.Instance = DMA2_Channel2;
+    hdma_usart1_tx.Init.Request = DMA_REQUEST_USART1_TX;
+    hdma_usart1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+    hdma_usart1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_usart1_tx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_usart1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+    hdma_usart1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    hdma_usart1_tx.Init.Mode = DMA_NORMAL;
+    hdma_usart1_tx.Init.Priority = DMA_PRIORITY_MEDIUM;
+    if (HAL_DMA_Init(&hdma_usart1_tx) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    __HAL_LINKDMA(huart,hdmatx,hdma_usart1_tx);
+
+    /* USART1 interrupt Init */
+    HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
   /* USER CODE END USART1_MspInit 1 */
@@ -301,6 +322,11 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
     */
     HAL_GPIO_DeInit(GPIOA, CAM_TX_Pin|CAM_RX_Pin);
 
+    /* USART1 DMA DeInit */
+    HAL_DMA_DeInit(huart->hdmatx);
+
+    /* USART1 interrupt DeInit */
+    HAL_NVIC_DisableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 
   /* USER CODE END USART1_MspDeInit 1 */

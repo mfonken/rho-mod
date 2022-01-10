@@ -24,10 +24,10 @@
 #define CORE_RATE                   PlatformFunctions.Clock.SysClockFreq()
 
 #define SUBSAMPLE_APPLICATION       1
-#define PERCENT_ACTIVE_APPLICATION  0.20
-#define DEFAULT_FRAME_APPLICATION   20
+#define PERCENT_ACTIVE_APPLICATION  0.10
+#define DEFAULT_FRAME_APPLICATION   10
 
-#define CAPTURE_DIV                 2
+#define CAPTURE_DIV                 3
 
 /************************************************************************
  *                        Derived Configuration                         *
@@ -42,7 +42,7 @@
 #define DEFAULT_PERCENT_ACTIVE      PERCENT_ACTIVE_APPLICATION
 #define DEFAULT_FRAME_RATE          DEFAULT_FRAME_APPLICATION
 
-#define MAX_FRAME_RATE              15
+#define MAX_FRAME_RATE              10
 #define MAX_PCLK_RATE               42000000
 #define BASE_FRAME_SCALE            ( (double)MAX_PCLK_RATE / (double)MAX_FRAME_RATE )
 #define PCLK(X)                     ( (double)X * BASE_FRAME_SCALE )
@@ -165,7 +165,7 @@
  ***********************************************************************/
 #define THRESH_BUFFER_MAX_LENGTH    100000
 
-#define BUFFER_END_PADDING          2
+#define BUFFER_END_PADDING          0//2
 #define CAPTURE_BUFFER_LENGTH       (uint32_t)( FRAME_WIDTH_BASE + BUFFER_END_PADDING )
 #define THRESH_BUFFER_LENGTH        (uint32_t)( (uint32_t)( (double)FRAME_HEIGHT * (double)FRAME_WIDTH(DEFAULT_SUBSAMPLE) * PERCENT_ACTIVE_APPLICATION ) + FRAME_HEIGHT + BUFFER_END_PADDING )
 #define DENSITY_MAP_X_LENGTH        (uint32_t)( FRAME_HEIGHT + BUFFER_END_PADDING )
@@ -242,26 +242,12 @@
 /************************************************************************
  *                       Dynamic Calculation                            *
  ***********************************************************************/
-static uint8_t _subSample           = DEFAULT_SUBSAMPLE;
-static double _percentActive        = DEFAULT_PERCENT_ACTIVE;
-static double _frameRate            = DEFAULT_FRAME_RATE;
+extern uint8_t _subSample;
+extern double _percentActive;
+extern double _frameRate;
 
-static void SetSubsample( uint8_t subSample )
-{
-    _subSample = subSample;
-}
-
-static void SetPercentActive( double percentActive )
-{
-    if( percentActive > PERCENT_ACTIVE_APPLICATION )
-        _percentActive = PERCENT_ACTIVE_APPLICATION;
-    else
-        _percentActive = percentActive;
-}
-
-static void SetFrameRate( double frameRate )
-{
-    _frameRate = frameRate;
-}
+extern void SetSubsample( uint8_t );
+extern void SetPercentActive( double );
+extern void SetFrameRate( double );
 
 #endif /* OV9712_calc_h */

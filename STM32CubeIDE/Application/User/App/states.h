@@ -5,12 +5,13 @@
 
 typedef enum
 {
-  INITIALIZING = 1,
+  INITIALIZING = 0,
   CONNECTING_TO_HOST,
   CONFIGURING,
   READY,
   ACTIVE,
   IDLE,
+  TEST_STATE,
   RECONFIGURING,
   SYS_ERROR,
   NUM_SYSTEM_STATES
@@ -24,6 +25,7 @@ static const char * system_state_enum_strings[] =
   "READY",
   "ACTIVE",
   "IDLE",
+  "TEST_STATE",
   "RECONFIGURING",
   "SYS_ERROR",
   "UNKNOWN"

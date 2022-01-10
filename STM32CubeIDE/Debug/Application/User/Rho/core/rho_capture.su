@@ -1,0 +1,2 @@
+rho_capture.c:3:11:RhoCapture_CaptureRow	4	static,ignoring_inline_asm
+rho_capture.c:54:19:RhoCapture_ProcessFrameSection	24	static,ignoring_inline_asm

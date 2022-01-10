@@ -16,55 +16,44 @@ master_t Master;
 /************************************************************************
  *                           Interrupt Handlers                         *
  ***********************************************************************/
-//static int hrefs = 0;
 inline void STM_InterruptHandler( uint16_t GPIO_Pin )
 {
-    /* Applicaiton Specific */
 #ifdef __RHO__
-  if(!CameraFlags.IRQ) return;
-  switch(GPIO_Pin)
-  {
-    case VSYNC_Pin:
-        CameraFlags.Frame = !(flag_t)( VSYNC_GPIO_Port->IDR & VSYNC_Pin );
-//        if(!Platform.CameraFlags.Frame)
-//          Platform.CameraFlags.IRQ = false;
-//        else
-//          hrefs = 0;
-        break;
-    case HREF_Pin:
-        CameraFlags.Row = (flag_t)( HREF_GPIO_Port->IDR & HREF_Pin );
-//        if(Platform.CameraFlags.Frame && Platform.CameraFlags.Row)
-//          HAL_GPIO_WritePin(GPIOB, LED_Pin|DEBUG_Pin, GPIO_PIN_SET);
+	if(!CameraFlags.IRQ) return;
+	if(GPIO_Pin == VSYNC_Pin)
+		CameraFlags.Frame = !(flag_t)( VSYNC_GPIO_Port->IDR & VSYNC_Pin );
+	else if( GPIO_Pin == HREF_Pin)
+		CameraFlags.Row = (flag_t)( HREF_GPIO_Port->IDR & HREF_Pin );
         /* Row capture is callback connected on HREF=HIGH */
-        if( !CameraFlags.Row
-         && CameraFlags.Capture.Flag
-         && CameraFlags.Capture.Callback != NULL )
-            CameraFlags.Capture.Callback();
-        break;
-    default:
-        return;
-  }
-  if(!CameraFlags.Row || CameraFlags.Frame )
-  {
+//        if( !CameraFlags.Row
+//         && CameraFlags.Capture.Flag )
+////         && CameraFlags.Capture.Callback != NULL )
+//        {
+////            CameraFlags.Capture.Callback();
+//        }
+//        break;
+
+//  if(!CameraFlags.Row || CameraFlags.Frame )
+//  {
 //    LOG(ALWAYS, "0x%08x", Master.Utilities.Timer_Primary->hdma[RHO_TIM_DMA_ID]->Instance->CNDTR );
 //    HAL_DMA_Abort(Master.Utilities.Timer_Primary->hdma[RHO_TIM_DMA_ID]);
 //    STM_InitDMA( (uint32_t)&CAMERA_PORT, _dma_destination, _dma_size, true );
 //    LOG(ALWAYS, "0x%08x", Master.Utilities.Timer_Primary->hdma[RHO_TIM_DMA_ID]->Instance->CNDTR );
 //    LOG(ALWAYS, ENDL);
-  }
-#endif
+//  }
+#endif/* EXTI line interrupt detected */
 }
 void STM_InterruptEnable( void )
 {
 //  STM_ResumeDMA(RHO_TIM_IT_CC, RHO_TIM_CHANNEL);
   HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
 }
 void STM_InterruptDisable( void )
 {
 //  STM_PauseDMA(RHO_TIM_IT_CC, RHO_TIM_CHANNEL);
   HAL_NVIC_DisableIRQ(EXTI0_IRQn);
-  HAL_NVIC_DisableIRQ(EXTI4_IRQn);
+  HAL_NVIC_DisableIRQ(EXTI3_IRQn);
 }
 
 /************************************************************************
@@ -144,6 +133,10 @@ inline uint8_t STM_ReadPort( GPIO_TypeDef * port )
 inline void STM_WritePin( GPIO_TypeDef * port, uint16_t pin, uint8_t state )
 {
   HAL_GPIO_WritePin( port, pin, (GPIO_PinState)state);
+}
+inline void STM_TogglePin( GPIO_TypeDef * port, uint16_t pin )
+{
+  HAL_GPIO_TogglePin( port, pin );
 }
 
 /************************************************************************
