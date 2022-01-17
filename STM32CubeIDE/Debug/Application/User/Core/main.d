@@ -44,35 +44,13 @@ Application/User/Core/main.o: \
  c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\app\platform_interface\stm32_interface.h \
  c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\app\platform_interface\stm32_config.h \
  C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/App/global_config.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_master.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\core/rho_client.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\core/rho_capture.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\core/rho_core.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\core/rho_utility.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types\rho_types.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types\rho_structure.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\psm\fsm.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\psm\control_structures.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\psm\control_types.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_config.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_global.h \
  c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\unism\system_master.h \
  c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\unism\system_types.h \
  c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\unism\system.h \
  c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\unism\platform.h \
  c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\app\states.h \
  c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\unilog\unilog.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\app\states.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/maths_master.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/matvec.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/pid.h \
- C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/Rho/rho_global.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/statistics.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/kumaraswamy.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/kalman.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_packet.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_config.h \
- c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\app\ov9712\ov9712.h
+ c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\app\states.h
 
 ../../Core/Inc/main.h:
 
@@ -162,30 +140,6 @@ c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application
 
 C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/App/global_config.h:
 
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_master.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\core/rho_client.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\core/rho_capture.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\core/rho_core.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\core/rho_utility.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types\rho_types.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types\rho_structure.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\psm\fsm.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\psm\control_structures.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\psm\control_types.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_config.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_global.h:
-
 c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\unism\system_master.h:
 
 c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\unism\system_types.h:
@@ -199,23 +153,3 @@ c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application
 c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\unilog\unilog.h:
 
 c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\app\states.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/maths_master.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/matvec.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/pid.h:
-
-C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/Rho/rho_global.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/statistics.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/kumaraswamy.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\types/kalman.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_packet.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\rho\rho_config.h:
-
-c:\users\matthew\ fonken\desktop\marbl\techincal\rhomod\stm32cubeide\application\user\app\ov9712\ov9712.h:

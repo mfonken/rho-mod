@@ -68,7 +68,8 @@ Application/User/Rho/core/rho_client.o: \
  ../Application/User/Rho/core/../types/../psm/../../App/OV9712/OV9712.h \
  ../Application/User/Rho/core/../types/../psm/../../App/OV9712/OV9712_calc.h \
  ../Application/User/Rho/core/../types/../psm/../../App/OV9712/OV9712_regs.h \
- C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniSM/platform.h
+ C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniSM/platform.h \
+ C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniSM/stopwatch.h
 
 ../Application/User/Rho/core/rho_client.h:
 
@@ -207,3 +208,5 @@ C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application
 ../Application/User/Rho/core/../types/../psm/../../App/OV9712/OV9712_regs.h:
 
 C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniSM/platform.h:
+
+C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniSM/stopwatch.h:

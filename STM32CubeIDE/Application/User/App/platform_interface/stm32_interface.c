@@ -18,8 +18,8 @@ master_t Master;
  ***********************************************************************/
 inline void STM_InterruptHandler( uint16_t GPIO_Pin )
 {
-#ifdef __RHO__
-	if(!CameraFlags.IRQ) return;
+//#ifdef __RHO__
+//	if(!CameraFlags.IRQ) return;
 	if(GPIO_Pin == VSYNC_Pin)
 		CameraFlags.Frame = !(flag_t)( VSYNC_GPIO_Port->IDR & VSYNC_Pin );
 	else if( GPIO_Pin == HREF_Pin)
@@ -41,7 +41,7 @@ inline void STM_InterruptHandler( uint16_t GPIO_Pin )
 //    LOG(ALWAYS, "0x%08x", Master.Utilities.Timer_Primary->hdma[RHO_TIM_DMA_ID]->Instance->CNDTR );
 //    LOG(ALWAYS, ENDL);
 //  }
-#endif/* EXTI line interrupt detected */
+//#endif/* EXTI line interrupt detected */
 }
 void STM_InterruptEnable( void )
 {
@@ -92,7 +92,12 @@ uint32_t STM_GetDMAFillAddress( dma_info_t * info )
  ***********************************************************************/
 inline uint8_t STM_UartTxDMA( UART_Handle_t * huart, uint8_t * buffer, uint16_t length )
 {
-  return 0;//HAL_UART_Transmit( Master.IOs.UART_Primary, buffer, length, UART_TIMEOUT ); //HAL_UART_Transmit_DMA
+	uint8_t ret;
+	do
+	{
+		ret = HAL_UART_Transmit_DMA( Master.IOs.UART_Primary, buffer, length);
+	} while(ret == HAL_BUSY);
+	return ret;//( Master.IOs.UART_Primary, buffer, length);//, UART_TIMEOUT );
 }
 
 inline uint16_t STM_UartRxDMA( UART_Handle_t * huart, uint8_t * buffer )

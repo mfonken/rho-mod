@@ -1,2 +1,6 @@
-rho_capture.c:3:11:RhoCapture_CaptureRow	4	static,ignoring_inline_asm
-rho_capture.c:54:19:RhoCapture_ProcessFrameSection	24	static,ignoring_inline_asm
+kumaraswamy.h:30:13:Kumaraswamy_Initialize	24	static
+kumaraswamy.h:36:22:Kumaraswamy_PerformCDF	24	static
+kumaraswamy.h:41:13:Kumaraswamy_GetVector	56	static
+control_types.h:354:23:WeightedAverage	40	static
+rho_capture.c:3:11:RhoCapture_CaptureRow	12	static,ignoring_inline_asm
+rho_capture.c:51:19:RhoCapture_ProcessFrameSection	56	static,ignoring_inline_asm

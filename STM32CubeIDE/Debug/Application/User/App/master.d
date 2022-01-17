@@ -42,35 +42,13 @@ Application/User/App/master.o: ../Application/User/App/master.c \
  C:/Users/Matthew\ Fonken/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
  C:/Users/Matthew\ Fonken/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
  C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/App/global_config.h \
- ../Application/User/App/../Rho/rho_master.h \
- ../Application/User/App/../Rho/core/rho_client.h \
- ../Application/User/App/../Rho/core/rho_capture.h \
- ../Application/User/App/../Rho/core/rho_core.h \
- ../Application/User/App/../Rho/core/rho_utility.h \
- ../Application/User/App/../Rho/core/../types/rho_types.h \
- ../Application/User/App/../Rho/core/../types/rho_structure.h \
- ../Application/User/App/../Rho/core/../types/../psm/fsm.h \
- ../Application/User/App/../Rho/core/../types/../psm/control_structures.h \
- ../Application/User/App/../Rho/core/../types/../psm/control_types.h \
- ../Application/User/App/../Rho/core/../types/../psm/../rho_config.h \
- ../Application/User/App/../Rho/core/../types/../psm/../rho_global.h \
- ../Application/User/App/../Rho/core/../types/../psm/../../UniSM/system_master.h \
- ../Application/User/App/../Rho/core/../types/../psm/../../UniSM/system_types.h \
- ../Application/User/App/../Rho/core/../types/../psm/../../UniSM/system.h \
- ../Application/User/App/../Rho/core/../types/../psm/../../UniSM/platform.h \
- ../Application/User/App/../Rho/core/../types/../psm/../../UniSM/../App/states.h \
- ../Application/User/App/../Rho/core/../types/../psm/../../UniLog/unilog.h \
- ../Application/User/App/../Rho/core/../types/../psm/../../App/states.h \
- ../Application/User/App/../Rho/core/../types/../psm/../types/maths_master.h \
- ../Application/User/App/../Rho/core/../types/../psm/../types/matvec.h \
- ../Application/User/App/../Rho/core/../types/../psm/../types/pid.h \
- C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/Rho/rho_global.h \
- ../Application/User/App/../Rho/core/../types/../psm/../types/statistics.h \
- ../Application/User/App/../Rho/core/../types/../psm/../types/kumaraswamy.h \
- ../Application/User/App/../Rho/core/../types/../psm/../types/kalman.h \
- ../Application/User/App/../Rho/core/../types/../psm/../rho_packet.h \
- ../Application/User/App/../Rho/core/../types/../psm/../rho_config.h \
- ../Application/User/App/../Rho/core/../types/../psm/../../App/OV9712/OV9712.h \
+ ../Application/User/App/../UniSM/system_master.h \
+ ../Application/User/App/../UniSM/system_types.h \
+ ../Application/User/App/../UniSM/system.h \
+ ../Application/User/App/../UniSM/platform.h \
+ ../Application/User/App/../UniSM/../App/states.h \
+ ../Application/User/App/../UniLog/unilog.h \
+ ../Application/User/App/../App/states.h \
  C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniSM/printers.h \
  C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniSM/resources.h \
  C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniLog/unilog.h
@@ -163,63 +141,19 @@ C:/Users/Matthew\ Fonken/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM
 
 C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/App/global_config.h:
 
-../Application/User/App/../Rho/rho_master.h:
+../Application/User/App/../UniSM/system_master.h:
 
-../Application/User/App/../Rho/core/rho_client.h:
+../Application/User/App/../UniSM/system_types.h:
 
-../Application/User/App/../Rho/core/rho_capture.h:
+../Application/User/App/../UniSM/system.h:
 
-../Application/User/App/../Rho/core/rho_core.h:
+../Application/User/App/../UniSM/platform.h:
 
-../Application/User/App/../Rho/core/rho_utility.h:
+../Application/User/App/../UniSM/../App/states.h:
 
-../Application/User/App/../Rho/core/../types/rho_types.h:
+../Application/User/App/../UniLog/unilog.h:
 
-../Application/User/App/../Rho/core/../types/rho_structure.h:
-
-../Application/User/App/../Rho/core/../types/../psm/fsm.h:
-
-../Application/User/App/../Rho/core/../types/../psm/control_structures.h:
-
-../Application/User/App/../Rho/core/../types/../psm/control_types.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../rho_config.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../rho_global.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../../UniSM/system_master.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../../UniSM/system_types.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../../UniSM/system.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../../UniSM/platform.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../../UniSM/../App/states.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../../UniLog/unilog.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../../App/states.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../types/maths_master.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../types/matvec.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../types/pid.h:
-
-C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/Rho/rho_global.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../types/statistics.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../types/kumaraswamy.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../types/kalman.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../rho_packet.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../rho_config.h:
-
-../Application/User/App/../Rho/core/../types/../psm/../../App/OV9712/OV9712.h:
+../Application/User/App/../App/states.h:
 
 C:/Users/Matthew\ Fonken/Desktop/marbl/Techincal/RhoMod/STM32CubeIDE/Application/User/UniSM/printers.h:
 

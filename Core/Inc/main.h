@@ -96,8 +96,6 @@ void Error_Handler(void);
 #define PCLK_GPIO_Port GPIOB
 #define CAM__CS_Pin GPIO_PIN_5
 #define CAM__CS_GPIO_Port GPIOB
-#define LED_Pin GPIO_PIN_6
-#define LED_GPIO_Port GPIOB
 #define SIOD_Pin GPIO_PIN_7
 #define SIOD_GPIO_Port GPIOB
 #define SIOC_Pin GPIO_PIN_8

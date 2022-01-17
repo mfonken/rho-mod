@@ -60,15 +60,15 @@ void SetFrameRate( double frameRate )
  ***********************************************************************/
 static hw_register_t OV9712_regs[] =
 {
-    {DVP_CTRL_00,	0xb0}, // [7:6]VSYNC - vsync_old(b00), vsync_new(b01), or vsync3(b10)|[5]pclk_gate_en|[4]vsync_gate|[3]vsync3_w_sel|[2]pclk reverse|[1]href reverse|[0]vsync reverse
-    {REG5C,		REG5C_V}, // [6:5]PLL Pre-divider - /1(b0x), /2(b10), or /4(b11)|[4:0]Pll-multiplier CLK2=CLK1 x (32-[4:0])
-    {REG5D,     REG5D_V}, // [5:4]Output drive capability - 1x(b00), 2x(b01), 3x(b10), or 4x(b11)
-
+    {DVP_CTRL_00,	DVP_CTRL_00_V},
+    {REG5C,		REG5C_V},
+    {REG5D,     REG5D_V},
+//
     {REG57,		REG57_V},
     {REG58,		REG58_V},
     {REG59,		REG59_V},
 ////#ifndef OV9712_1280x800_CONFIG
-//    {LENC_CTRL_23, 0x05}, // [2]V_skip|[0]H_skip - Normal image output(b0) or Sub-sampling output(b1)
+    {LENC_CTRL_23, 0x05}, // [2]V_skip|[0]H_skip - Normal image output(b0) or Sub-sampling output(b1)
 ////#endif
     {AHSIZE,    AHSIZE_V},
     {AVSIZE,    AVSIZE_V},
@@ -76,7 +76,8 @@ static hw_register_t OV9712_regs[] =
     {HSTART,    HSTART_V},
     {REG03,     REG03_V},
     {VSTART, 	VSTART_V},
-//
+
+	{COM7, 		COM7_V},
     {DSP_CTRL_1, DSP_CTRL_1_V}, // [7]SMPH Mean enable|[3]Color bar without pixel overlay|[1:0]Patterns
     {ENDR}
 };

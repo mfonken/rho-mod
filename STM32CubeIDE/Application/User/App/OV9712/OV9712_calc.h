@@ -15,7 +15,7 @@
 /************************************************************************
  *                             Settings                                 *
  ***********************************************************************/
-//#define OV9712_1280x800_CONFIG
+#define OV9712_1280x800_CONFIG
 //#define USE_RGGB_G_SKIP
 
 /************************************************************************
@@ -24,10 +24,10 @@
 #define CORE_RATE                   PlatformFunctions.Clock.SysClockFreq()
 
 #define SUBSAMPLE_APPLICATION       1
-#define PERCENT_ACTIVE_APPLICATION  0.10
+#define PERCENT_ACTIVE_APPLICATION  1//0.025
 #define DEFAULT_FRAME_APPLICATION   10
 
-#define CAPTURE_DIV                 3
+#define CAPTURE_DIV                 5
 
 /************************************************************************
  *                        Derived Configuration                         *
@@ -51,23 +51,23 @@
  *                      OV9712 Datasheet Values                         *
  * See https://datasheet.lcsc.com/szlcsc/OmniVision-Technologies-OV09712-V28A-1D_C11171.pdf *
  ***********************************************************************/
-#define DEFAULT_HOFFSET             0x131
-#define DEFAULT_VOFFSET             0x6
+#define DEFAULT_HOFFSET             0//300
+#define DEFAULT_VOFFSET             0//180
 
 /* Color bar settings */
-#define ENABLE_COLOR_BAR            false
+#define ENABLE_COLOR_BAR            false//true//
 #define COLOR_BAR_SOLID             0x0
 #define COLOR_BAR_FADE              0x1
 #define COLOR_BAR                   0x2
-#define COLOR_BAR_STYLE             COLOR_BAR
+#define COLOR_BAR_STYLE             COLOR_BAR_FADE
 
 #ifdef OV9712_1280x800_CONFIG
 #define FRAME_WIDTH_BASE_PRE_DIV    1280
 #define FRAME_HEIGHT_PRE_DIV        800
-#define FRAME_WIDTH_BASE            /*( CAPTURE_DIV == 0 ? FRAME_WIDTH_BASE_PRE_DIV : */( FRAME_WIDTH_BASE_PRE_DIV >> CAPTURE_DIV )// )
-#define FRAME_HEIGHT                /*( CAPTURE_DIV == 0 ? FRAME_HEIGHT_PRE_DIV : */( FRAME_HEIGHT_PRE_DIV >> CAPTURE_DIV )// )
+#define FRAME_WIDTH_BASE            ( FRAME_WIDTH_BASE_PRE_DIV >> CAPTURE_DIV )
+#define FRAME_HEIGHT                ( FRAME_HEIGHT_PRE_DIV >> CAPTURE_DIV )
 #define FRAME_HSTART                ( ( ( FRAME_WIDTH_BASE_PRE_DIV >> 1 ) - ( FRAME_WIDTH_BASE >> 1 ) ) + DEFAULT_HOFFSET )
-#define FRAME_VSTART                ( ( ( FRAME_HEIGHT_PRE_DIV >> 1 ) - ( FRAME_HEIGHT     >> 1 ) ) + DEFAULT_VOFFSET )
+#define FRAME_VSTART                ( ( ( FRAME_HEIGHT_PRE_DIV >> 1 ) - ( FRAME_HEIGHT >> 1 ) ) + DEFAULT_VOFFSET )
 
 /* See https://datasheet.lcsc.com/szlcsc/OmniVision-Technologies-OV09712-V28A-1D_C11171.pdf */
 #define VSYNC_HIGH_TP               33584
@@ -84,8 +84,8 @@
 #else
 #define FRAME_WIDTH_BASE_PRE_DIV    640
 #define FRAME_HEIGHT_PRE_DIV        400
-#define FRAME_WIDTH_BASE            /*( CAPTURE_DIV == 0 ? FRAME_WIDTH_BASE_PRE_DIV : */( FRAME_WIDTH_BASE_PRE_DIV >> CAPTURE_DIV )// )
-#define FRAME_HEIGHT                /*( CAPTURE_DIV == 0 ? FRAME_HEIGHT_PRE_DIV : */( FRAME_HEIGHT_PRE_DIV >> CAPTURE_DIV )// )
+#define FRAME_WIDTH_BASE            ( FRAME_WIDTH_BASE_PRE_DIV >> CAPTURE_DIV )
+#define FRAME_HEIGHT                ( FRAME_HEIGHT_PRE_DIV >> CAPTURE_DIV )
 #define FRAME_HSTART                ( ( ( FRAME_WIDTH_BASE_PRE_DIV >> 1 ) - ( FRAME_WIDTH_BASE >> 1 ) ) + DEFAULT_HOFFSET )
 #define FRAME_VSTART                ( ( ( FRAME_HEIGHT_PRE_DIV >> 1 ) - ( FRAME_HEIGHT     >> 1 ) ) + DEFAULT_VOFFSET )
 
@@ -205,8 +205,20 @@
 #define AHSIZE_V                    CAMERA_SENSOR_AHSIZE_MSB
 #define AVSIZE_V                    CAMERA_SENSOR_AVSIZE_MSB
 
+#define VSYNC_OLD					0x0
+#define VSYNC_NEW					0x1
+#define VSYNC3						0x2
+#define VSYNC_OPTION				VSYNC3
+#define PCLK_GATE					0x01
+#define VSYNC_GATE					0x01
+#define VSYNC3_W_SEL				0x00
+#define DVP_CTRL_00_V				( ( VSYNC_OPTION << 6 ) | ( PCLK_GATE << 5 ) | ( VSYNC_GATE << 4 ) | ( VSYNC3_W_SEL << 3 ) ) // [7:6]VSYNC - vsync_old(b00), vsync_new(b01), or vsync3(b10)|[5]pclk_gate_en|[4]vsync_gate|[3]vsync3_w_sel|[2]pclk reverse|[1]href reverse|[0]vsync reverse
+
 #define DSP_CTRL_1_SMPH_MEAN_EN     ( CAPTURE_DIV > 0 ? 1 : 0)
-#define DSP_CTRL_1_V                ( ( DSP_CTRL_1_SMPH_MEAN_EN << 7 ) | ( ENABLE_COLOR_BAR  << 3 ) | ( ENABLE_COLOR_BAR ? COLOR_BAR_STYLE & 0x3 : 0 ) )
+#define DSP_CTRL_1_SHT_NEG			0x0 // default: 0x0
+#define DSP_CTRL_1_V                ( ( DSP_CTRL_1_SMPH_MEAN_EN << 7 ) | ( DSP_CTRL_1_SHT_NEG << 2 ) | ( ( ENABLE_COLOR_BAR & 0x1 ) << 3 ) | ( ENABLE_COLOR_BAR ? COLOR_BAR_STYLE & 0x3 : 0x00 ) ) //0x08 ) )
+
+#define COM7_V						( ( ENABLE_COLOR_BAR & 0x01 ) << 1 )
 
 #define CAMERA_WIDTH_R              ( ( ( REG57_V >> 3 ) & 0x07 ) | (REG59_V << 3))
 #define CAMERA_HEIGHT_R             ( ( REG57_V & 0x03 ) | (REG58_V << 2))
@@ -222,15 +234,14 @@
 #define PLL_DIVIDER                 ( ( REG5D_DEFAULT >> 2 ) & 0x03 )
 #define CLK_DIVIDER                 REG11_DEFAULT
 #else
-#define REVERSE_BIT_LOOKUP(X)       ( ( X == 0x04 ) ? 0x03 : ( ( X == 0x02 ) ? 0x02 : 0x01 ) )
-#define PLL_PRE_DIVIDER             0x04 /* REG5C[6:5]: 1= /1, 2= /2, or 3= /4, default is 0x02 */
-#define PLL_MULTIPLIER              0x19 /* REG5C[4:0]: 32- 0-31,               default is 0x19 */
+#define PLL_PRE_DIVIDER             0x01 /* REG5C[6:5]: 1= /1, 2= /2, or 3= /4, default is 0x02 */
+#define PLL_MULTIPLIER              0x1a /* REG5C[4:0]: 32- 0-31,               default is 0x19 */
 #define PLL_DIVIDER                 0x01 /* REG5D[3:2]: 0-3 +1,                 default is 0x01 */
 #define CLK_DIVIDER                 0x00 /* REG11[5:0]: 0-63,                   default is 0x00 */
-#define PLL_BYPASS                  (uint8_t)true /* true(1)/false(0)           default is true */
-#define DRIVE_CAPABILITY            (uint8_t)0x03 /* 0-3 +1,                    default is 0x00 */
-#define REG5C_V                     (uint8_t)( ( ( REVERSE_BIT_LOOKUP(PLL_PRE_DIVIDER) & 0x03 ) << 5 ) | ( PLL_MULTIPLIER & 0x1f ) )
-#define REG5D_V                     (uint8_t)( ( 1 << 7 ) | ( ( PLL_BYPASS & 0x01 ) << 6 ) | ( ( DRIVE_CAPABILITY & 0x03 ) << 4 ) | ( ( PLL_DIVIDER & 0x03 ) << 2 ) )
+#define PLL_BYPASS                  false /* true(1)/false(0)           default is true */
+#define DRIVE_CAPABILITY            0x03 /* 0-3 +1,                    default is 0x00 */
+#define REG5C_V                     (uint8_t)( ( ( PLL_PRE_DIVIDER & 0x03 ) << 5 ) | ( PLL_MULTIPLIER & 0x1f ) ) // [6:5]PLL Pre-divider - /1(b0x), /2(b10), or /4(b11)|[4:0]Pll-multiplier CLK2=CLK1 x (32-[4:0])
+#define REG5D_V                     (uint8_t)( ( 1 << 7 ) | ( ( PLL_BYPASS & 0x01 ) << 6 ) | ( ( DRIVE_CAPABILITY & 0x03 ) << 4 ) | ( ( PLL_DIVIDER & 0x03 ) << 2 ) ) // [5:4]Output drive capability - 1x(b00), 2x(b01), 3x(b10), or 4x(b11)
 #endif
 
 #define MAX_XCLK_RATE               27000000
