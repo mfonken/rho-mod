@@ -35,34 +35,19 @@ dma_info_t CameraDMA =
 	true
 };
 camera_application_flags CameraFlags = { 0 };
-//GPIO_t LED_GPIO = { LED_GPIO_Port, LED_Pin };
-bool frame_ready;
-uint8_t frame[FRAME_SIZE];
-static uint16_t nl = 0x0123;
-/**
-  * @brief This function handles DMA1 channel1 global interrupt.
-  */
-//void DMA1_Channel1_IRQHandler(void)
-//{
-//  /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
-//
-//  /* USER CODE END DMA1_Channel1_IRQn 0 */
-//  HAL_DMA_IRQHandler(Master.Utilities.Timer_Primary->hdma[RHO_TIM_DMA_ID]);
-//  /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
-////  PlatformFunctions.GPIO.Toggle( &LED_GPIO );
-//
-//  frame_ready = true;
-//  /* USER CODE END DMA1_Channel1_IRQn 1 */
-//}
+GPIO_t LED_GPIO = { LED_GPIO_Port, LED_Pin };
 
+
+#ifndef __RHO__
 static bool tx_cplt = false;
-
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-//	PlatformFunctions.GPIO.Write( &LED_GPIO, 0 );
+	PlatformFunctions.GPIO.Write( &LED_GPIO, 0 );
 	tx_cplt = true;
 }
-
+bool frame_ready;
+volatile uint8_t frame[FRAME_SIZE] __attribute__ ((section (".ccmram"))) = { 0 };
+static uint16_t nl = 0x0123;
 void CaptureFrame()
 {
 //	PlatformFunctions.DMA.Reset( &CameraDMA );
@@ -70,26 +55,38 @@ void CaptureFrame()
 //	memset(frame, 0, FRAME_SIZE);
 	CameraDMA.dst = (uint32_t)frame;
 	PlatformFunctions.DMA.Init( &CameraDMA );
-	while(!CameraFlags.Row);
-	while(CameraFlags.Row);
+//	while(!CameraFlags.Row);
+//	PlatformFunctions.GPIO.Write( &LED_GPIO, 1 );
+//	while(CameraFlags.Row);
+//	PlatformFunctions.GPIO.Write( &LED_GPIO, 0 );
 	for(int r = 0; r < FRAME_HEIGHT; r++)
 	{
 		CameraDMA.dst = (uint32_t)frame + ( r * FRAME_WIDTH_BASE );
 		PlatformFunctions.DMA.Init( &CameraDMA );
 		while(!CameraFlags.Row);
-		while(CameraFlags.Row)
-			asm volatile("nop\n\tnop\n\tnop\n\t");
+//		PlatformFunctions.GPIO.Write( &LED_GPIO, 1 );
+		HAL_SuspendTick();
+		HAL_PWR_EnableSleepOnExit();
+		HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+//		while(CameraFlags.Row);
+//			asm volatile("nop\n\tnop\n\tnop\n\t");
+		HAL_ResumeTick();
+//		PlatformFunctions.GPIO.Write( &LED_GPIO, 0 );
 //		uint32_t fill = PlatformFunctions.DMA.GetFillAddr( &CameraDMA ) - CameraDMA.dst;
 //		asm volatile("nop");
 	}
 //	while(CameraFlags.Frame);
+
 	tx_cplt = false;
+	PlatformFunctions.GPIO.Write( &LED_GPIO, 1 );
 	TransmitToHost((uint8_t *)&nl, 2);
 	while(!tx_cplt);
 	tx_cplt = false;
+	PlatformFunctions.GPIO.Write( &LED_GPIO, 1 );
 	TransmitToHost((uint8_t *)frame, FRAME_SIZE);
 	while(!tx_cplt);
 }
+#endif
 
 /* INITIALIZING State Routine */
 void InitializePlatform( void )
@@ -140,12 +137,12 @@ void ExitInitialization( void )
 /* ACTIVE State Routine */
 void ApplicationCore( void )
 {
-	CaptureFrame();
-//#ifdef __RHO__
-//    RhoSystem.Functions.Perform.CoreProcess();
-//#else
-//#warning "No application core."
-//#endif
+#ifdef __RHO__
+    RhoSystem.Functions.Perform.CoreProcess();
+#else
+    CaptureFrame();
+#warning "No application core."
+#endif
 }
 
 /* SYS_ERROR State Routine */
@@ -169,7 +166,6 @@ void Master_Connect( I2C_Handle_t * i2c, TIMER_Handle_t * timer, UART_Handle_t *
   Master.IOs.I2C_Primary = i2c;
   Master.IOs.UART_Primary = usart;
   Master.Utilities.Timer_Primary = timer;
-  // PlatformFunctions.GPIO.Write( &LED_GPIO, GPIO_PIN_SET);
   MasterFunctions.Init();
 }
 

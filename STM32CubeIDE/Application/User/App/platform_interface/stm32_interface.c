@@ -23,7 +23,11 @@ inline void STM_InterruptHandler( uint16_t GPIO_Pin )
 	if(GPIO_Pin == VSYNC_Pin)
 		CameraFlags.Frame = !(flag_t)( VSYNC_GPIO_Port->IDR & VSYNC_Pin );
 	else if( GPIO_Pin == HREF_Pin)
+	{
 		CameraFlags.Row = (flag_t)( HREF_GPIO_Port->IDR & HREF_Pin );
+		if(!CameraFlags.Row)
+			HAL_PWR_DisableSleepOnExit();
+	}
         /* Row capture is callback connected on HREF=HIGH */
 //        if( !CameraFlags.Row
 //         && CameraFlags.Capture.Flag )

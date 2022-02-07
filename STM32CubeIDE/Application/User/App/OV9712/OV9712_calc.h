@@ -15,7 +15,7 @@
 /************************************************************************
  *                             Settings                                 *
  ***********************************************************************/
-#define OV9712_1280x800_CONFIG
+//#define OV9712_1280x800_CONFIG
 //#define USE_RGGB_G_SKIP
 
 /************************************************************************
@@ -24,10 +24,10 @@
 #define CORE_RATE                   PlatformFunctions.Clock.SysClockFreq()
 
 #define SUBSAMPLE_APPLICATION       1
-#define PERCENT_ACTIVE_APPLICATION  1//0.025
+#define PERCENT_ACTIVE_APPLICATION  0.005
 #define DEFAULT_FRAME_APPLICATION   10
 
-#define CAPTURE_DIV                 5
+#define CAPTURE_DIV               	4
 
 /************************************************************************
  *                        Derived Configuration                         *
@@ -55,7 +55,7 @@
 #define DEFAULT_VOFFSET             0//180
 
 /* Color bar settings */
-#define ENABLE_COLOR_BAR            false//true//
+#define ENABLE_COLOR_BAR           true// false//
 #define COLOR_BAR_SOLID             0x0
 #define COLOR_BAR_FADE              0x1
 #define COLOR_BAR                   0x2

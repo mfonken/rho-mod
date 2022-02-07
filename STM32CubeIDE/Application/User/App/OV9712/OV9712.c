@@ -70,8 +70,8 @@ static hw_register_t OV9712_regs[] =
 ////#ifndef OV9712_1280x800_CONFIG
     {LENC_CTRL_23, 0x05}, // [2]V_skip|[0]H_skip - Normal image output(b0) or Sub-sampling output(b1)
 ////#endif
-    {AHSIZE,    AHSIZE_V},
-    {AVSIZE,    AVSIZE_V},
+//    {AHSIZE,    AHSIZE_V},
+//    {AVSIZE,    AVSIZE_V},
     {REG32,     REG32_V},
     {HSTART,    HSTART_V},
     {REG03,     REG03_V},
