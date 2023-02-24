@@ -1,0 +1,14 @@
+C:/Users/Matthew Fonken/Desktop/marbl/Techincal/RhoMod/rho_mod_v7/Libs/UniSM/OV9712/OV9712_calc.h:249:13:SetSubsample	16	static
+C:/Users/Matthew Fonken/Desktop/marbl/Techincal/RhoMod/rho_mod_v7/Libs/UniSM/OV9712/OV9712_calc.h:254:13:SetPercentActive	16	static
+C:/Users/Matthew Fonken/Desktop/marbl/Techincal/RhoMod/rho_mod_v7/Libs/UniSM/OV9712/OV9712_calc.h:262:13:SetFrameRate	16	static
+../Libs/UniSM/master.c:16:6:InitializePlatform	8	static
+../Libs/UniSM/master.c:29:6:ConnectToHost	4	static
+../Libs/UniSM/master.c:40:6:ConfigureApplication	24	static
+../Libs/UniSM/master.c:52:6:ExitInitialization	8	static
+../Libs/UniSM/master.c:64:13:ApplicationCore	4	static
+../Libs/UniSM/master.c:74:6:SystemError	16	static
+../Libs/UniSM/master.c:88:6:Master_Connect	16	static
+../Libs/UniSM/master.c:95:6:Master_Init	8	static
+../Libs/UniSM/master.c:115:6:HAL_DCMI_FrameEventCallback	16	static
+../Libs/UniSM/master.c:119:6:HAL_DCMI_ErrorCallback	16	static
+../Libs/UniSM/master.c:128:6:Master_Run	8	static

@@ -1,0 +1,11 @@
+C:/Users/Matthew Fonken/Desktop/marbl/Techincal/RhoMod/rho_mod_v7/Libs/UniSM/OV9712/OV9712_calc.h:249:13:SetSubsample	16	static
+C:/Users/Matthew Fonken/Desktop/marbl/Techincal/RhoMod/rho_mod_v7/Libs/UniSM/OV9712/OV9712_calc.h:254:13:SetPercentActive	16	static
+C:/Users/Matthew Fonken/Desktop/marbl/Techincal/RhoMod/rho_mod_v7/Libs/UniSM/OV9712/OV9712_calc.h:262:13:SetFrameRate	16	static
+../Libs/UniSM/system.c:8:6:InitSystem	16	static
+../Libs/UniSM/system.c:16:6:NextStateSystem	24	static
+../Libs/UniSM/system.c:21:18:GetStateSystem	16	static
+../Libs/UniSM/system.c:26:6:SetStateSystem	24	static
+../Libs/UniSM/system.c:37:6:PerformStateSystem	24	static
+../Libs/UniSM/system.c:43:6:EnterStateSystem	16	static
+../Libs/UniSM/system.c:49:6:IsInStateSystem	16	static
+../Libs/UniSM/system.c:54:18:GetStateFromListSystem	24	static

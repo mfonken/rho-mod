@@ -1,0 +1,11 @@
+master.c:43:6:HAL_UART_TxCpltCallback	16	static
+master.c:51:6:CaptureFrame	16	static
+master.c:81:6:InitializePlatform	16	static
+master.c:88:6:ConnectToHost	4	static
+master.c:99:6:ConfigureApplication	8	static
+master.c:115:6:ExitInitialization	8	static
+master.c:127:6:ApplicationCore	8	static
+master.c:138:6:SystemError	16	static
+master.c:152:6:Master_Connect	24	static
+master.c:161:6:Master_Init	8	static
+master.c:182:6:Master_Run	8	static

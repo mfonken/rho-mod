@@ -1,0 +1,4 @@
+../Libs/UniSM/printers.c:12:13:print	16	static
+../Libs/UniSM/printers.c:20:6:DrawDensityMap	40	static
+../Libs/UniSM/printers.c:50:6:PrintDensityMaps	32	static
+../Libs/UniSM/printers.c:59:6:PrintBuffer	32	static
