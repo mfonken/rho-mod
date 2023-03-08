@@ -103,7 +103,9 @@ void HAL_DCMI_MspInit(DCMI_HandleTypeDef* hdcmi)
     PC7     ------> DCMI_D1
     PC8     ------> DCMI_D2
     PC9     ------> DCMI_D3
+    PC10     ------> DCMI_D8
     PC11     ------> DCMI_D4
+    PC12     ------> DCMI_D9
     PB6     ------> DCMI_D5
     PB7     ------> DCMI_VSYNC
     PB8     ------> DCMI_D6
@@ -112,7 +114,7 @@ void HAL_DCMI_MspInit(DCMI_HandleTypeDef* hdcmi)
     GPIO_InitStruct.Pin = GPIO_PIN_4;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF10_DCMI;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -123,7 +125,8 @@ void HAL_DCMI_MspInit(DCMI_HandleTypeDef* hdcmi)
     GPIO_InitStruct.Alternate = GPIO_AF4_DCMI;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_11;
+    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_10
+                          |GPIO_PIN_11|GPIO_PIN_12;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -137,21 +140,16 @@ void HAL_DCMI_MspInit(DCMI_HandleTypeDef* hdcmi)
     GPIO_InitStruct.Alternate = GPIO_AF4_DCMI;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_8|GPIO_PIN_9;
+    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF10_DCMI;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_7;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF10_DCMI;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
     __HAL_SYSCFG_FASTMODEPLUS_ENABLE(SYSCFG_FASTMODEPLUS_PB6);
+
+    __HAL_SYSCFG_FASTMODEPLUS_ENABLE(SYSCFG_FASTMODEPLUS_PB7);
 
     __HAL_SYSCFG_FASTMODEPLUS_ENABLE(SYSCFG_FASTMODEPLUS_PB8);
 
@@ -190,7 +188,9 @@ void HAL_DCMI_MspDeInit(DCMI_HandleTypeDef* hdcmi)
     PC7     ------> DCMI_D1
     PC8     ------> DCMI_D2
     PC9     ------> DCMI_D3
+    PC10     ------> DCMI_D8
     PC11     ------> DCMI_D4
+    PC12     ------> DCMI_D9
     PB6     ------> DCMI_D5
     PB7     ------> DCMI_VSYNC
     PB8     ------> DCMI_D6
@@ -199,7 +199,7 @@ void HAL_DCMI_MspDeInit(DCMI_HandleTypeDef* hdcmi)
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_4|GPIO_PIN_6);
 
     HAL_GPIO_DeInit(GPIOC, GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9
-                          |GPIO_PIN_11);
+                          |GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12);
 
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9);
 

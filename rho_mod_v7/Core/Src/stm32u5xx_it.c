@@ -57,7 +57,7 @@
 
 /* External variables --------------------------------------------------------*/
 extern DCMI_HandleTypeDef hdcmi;
-extern DMA_HandleTypeDef handle_GPDMA1_Channel12;
+extern DMA_HandleTypeDef handle_GPDMA1_Channel15;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -200,17 +200,17 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles GPDMA1 Channel 12 global interrupt.
+  * @brief This function handles GPDMA1 Channel 15 global interrupt.
   */
-void GPDMA1_Channel12_IRQHandler(void)
+void GPDMA1_Channel15_IRQHandler(void)
 {
-  /* USER CODE BEGIN GPDMA1_Channel12_IRQn 0 */
+  /* USER CODE BEGIN GPDMA1_Channel15_IRQn 0 */
 
-  /* USER CODE END GPDMA1_Channel12_IRQn 0 */
-  HAL_DMA_IRQHandler(&handle_GPDMA1_Channel12);
-  /* USER CODE BEGIN GPDMA1_Channel12_IRQn 1 */
+  /* USER CODE END GPDMA1_Channel15_IRQn 0 */
+  HAL_DMA_IRQHandler(&handle_GPDMA1_Channel15);
+  /* USER CODE BEGIN GPDMA1_Channel15_IRQn 1 */
 
-  /* USER CODE END GPDMA1_Channel12_IRQn 1 */
+  /* USER CODE END GPDMA1_Channel15_IRQn 1 */
 }
 
 /**

@@ -44,7 +44,7 @@
 
 DCMI_HandleTypeDef hdcmi;
 
-DMA_HandleTypeDef handle_GPDMA1_Channel12;
+DMA_HandleTypeDef handle_GPDMA1_Channel15;
 
 I2C_HandleTypeDef hi2c3;
 
@@ -73,8 +73,9 @@ static void MX_ICACHE_Init(void);
 /* USER CODE BEGIN 0 */
 int _write(int file, char *ptr, int len)
 {
-	HAL_StatusTypeDef status = HAL_UART_Transmit(&huart1, (uint8_t*) ptr, len, 1000);
-	return (int) status;
+//	HAL_StatusTypeDef status = HAL_UART_Transmit(&huart1, (uint8_t*) ptr, len, 1000);
+//	return (int) status;
+	return 0;
 }
 
 /* USER CODE END 0 */
@@ -117,8 +118,8 @@ int main(void)
   MX_ICACHE_Init();
   /* USER CODE BEGIN 2 */
 	MX_DCMIQueue_Config();
-	HAL_DMAEx_List_LinkQ(&handle_GPDMA1_Channel12, &DCMIQueue);
-	__HAL_LINKDMA(&hdcmi, DMA_Handle, handle_GPDMA1_Channel12);
+	HAL_DMAEx_List_LinkQ(&handle_GPDMA1_Channel15, &DCMIQueue);
+	__HAL_LINKDMA(&hdcmi, DMA_Handle, handle_GPDMA1_Channel15);
 
 	printf("Starting...\r\n");
 	MasterFunctions.Connect(&master_ios);
@@ -190,7 +191,7 @@ void SystemClock_Config(void)
 
   /** MCO configuration
   */
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSI48, RCC_MCODIV_8);
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSI48, RCC_MCODIV_4);
 }
 
 /**
@@ -223,11 +224,11 @@ static void MX_DCMI_Init(void)
   /* USER CODE END DCMI_Init 1 */
   hdcmi.Instance = DCMI;
   hdcmi.Init.SynchroMode = DCMI_SYNCHRO_HARDWARE;
-  hdcmi.Init.PCKPolarity = DCMI_PCKPOLARITY_FALLING;
+  hdcmi.Init.PCKPolarity = DCMI_PCKPOLARITY_RISING;
   hdcmi.Init.VSPolarity = DCMI_VSPOLARITY_HIGH;
-  hdcmi.Init.HSPolarity = DCMI_HSPOLARITY_HIGH;
+  hdcmi.Init.HSPolarity = DCMI_HSPOLARITY_LOW;
   hdcmi.Init.CaptureRate = DCMI_CR_ALL_FRAME;
-  hdcmi.Init.ExtendedDataMode = DCMI_EXTEND_DATA_8B;
+  hdcmi.Init.ExtendedDataMode = DCMI_EXTEND_DATA_10B;
   hdcmi.Init.JPEGMode = DCMI_JPEG_DISABLE;
   hdcmi.Init.ByteSelectMode = DCMI_BSM_ALL;
   hdcmi.Init.ByteSelectStart = DCMI_OEBS_ODD;
@@ -259,23 +260,23 @@ static void MX_GPDMA1_Init(void)
   __HAL_RCC_GPDMA1_CLK_ENABLE();
 
   /* GPDMA1 interrupt Init */
-    HAL_NVIC_SetPriority(GPDMA1_Channel12_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(GPDMA1_Channel12_IRQn);
+    HAL_NVIC_SetPriority(GPDMA1_Channel15_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(GPDMA1_Channel15_IRQn);
 
   /* USER CODE BEGIN GPDMA1_Init 1 */
 
   /* USER CODE END GPDMA1_Init 1 */
-  handle_GPDMA1_Channel12.Instance = GPDMA1_Channel12;
-  handle_GPDMA1_Channel12.InitLinkedList.Priority = DMA_LOW_PRIORITY_LOW_WEIGHT;
-  handle_GPDMA1_Channel12.InitLinkedList.LinkStepMode = DMA_LSM_FULL_EXECUTION;
-  handle_GPDMA1_Channel12.InitLinkedList.LinkAllocatedPort = DMA_LINK_ALLOCATED_PORT1;
-  handle_GPDMA1_Channel12.InitLinkedList.TransferEventMode = DMA_TCEM_LAST_LL_ITEM_TRANSFER;
-  handle_GPDMA1_Channel12.InitLinkedList.LinkedListMode = DMA_LINKEDLIST_CIRCULAR;
-  if (HAL_DMAEx_List_Init(&handle_GPDMA1_Channel12) != HAL_OK)
+  handle_GPDMA1_Channel15.Instance = GPDMA1_Channel15;
+  handle_GPDMA1_Channel15.InitLinkedList.Priority = DMA_HIGH_PRIORITY;
+  handle_GPDMA1_Channel15.InitLinkedList.LinkStepMode = DMA_LSM_FULL_EXECUTION;
+  handle_GPDMA1_Channel15.InitLinkedList.LinkAllocatedPort = DMA_LINK_ALLOCATED_PORT1;
+  handle_GPDMA1_Channel15.InitLinkedList.TransferEventMode = DMA_TCEM_LAST_LL_ITEM_TRANSFER;
+  handle_GPDMA1_Channel15.InitLinkedList.LinkedListMode = DMA_LINKEDLIST_CIRCULAR;
+  if (HAL_DMAEx_List_Init(&handle_GPDMA1_Channel15) != HAL_OK)
   {
     Error_Handler();
   }
-  if (HAL_DMA_ConfigChannelAttributes(&handle_GPDMA1_Channel12, DMA_CHANNEL_NPRIV) != HAL_OK)
+  if (HAL_DMA_ConfigChannelAttributes(&handle_GPDMA1_Channel15, DMA_CHANNEL_PRIV) != HAL_OK)
   {
     Error_Handler();
   }
@@ -301,7 +302,7 @@ static void MX_I2C3_Init(void)
 
   /* USER CODE END I2C3_Init 1 */
   hi2c3.Instance = I2C3;
-  hi2c3.Init.Timing = 0x00F07BFF;
+  hi2c3.Init.Timing = 0x30909DEC;
   hi2c3.Init.OwnAddress1 = 0;
   hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -381,7 +382,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 460800;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
